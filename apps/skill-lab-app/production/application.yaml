@@ -9,7 +9,7 @@ spec:
     # Helm chart from Fly OCI registry
     chart: skill-lab
     repoURL: skillab.jfrog.io/helmoci
-    targetRevision: "1.0.18"
+    targetRevision: "1.0.17"
     helm:
       valueFiles: []
       values: |
@@ -21,7 +21,7 @@ spec:
       ref: gitops
     - chart: skill-lab
       repoURL: skillab.jfrog.io/helmoci
-      targetRevision: "1.0.18"
+      targetRevision: "1.0.17"
       helm:
         valueFiles:
           - $gitops/apps/skill-lab-app/production/values.yaml
