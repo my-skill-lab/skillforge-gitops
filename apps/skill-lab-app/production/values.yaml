@@ -1,0 +1,26 @@
+# Production values — updated by CI (gitops-deploy-production-skill-lab-app)
+image:
+  repository: skillab.jfrog.io/docker/skill-lab-app
+  tag: "1.0.14"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: fly-production-registry-secret
+
+replicaCount: 3
+
+env:
+  DATABASE_URL: "postgresql://skilllab:skilllab@skill-lab-production-skill-lab-db:5432/skilllab"
+  ANTHROPIC_API_KEY: ""
+  NODE_ENV: "production"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+postgresql:
+  enabled: true
