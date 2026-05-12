@@ -1,7 +1,7 @@
 # Production values — updated by CI (gitops-deploy-production-skill-lab-app)
 image:
   repository: skillab.jfrog.io/docker/skill-lab-app
-  tag: "1.0.14"
+  tag: "1.0.15"
   pullPolicy: Always
 
 imagePullSecrets:
