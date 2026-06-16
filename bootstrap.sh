@@ -34,7 +34,15 @@ echo "=> Waiting for ArgoCD server to be ready..."
 kubectl --context="$CONTEXT" wait --for=condition=available \
   deployment/argocd-server -n argocd --timeout=120s
 
-# 2. Apply Application manifests
+# 2. Configure ArgoCD sync interval
+echo "=> Setting reconciliation interval to 30s..."
+kubectl --context="$CONTEXT" patch configmap argocd-cm -n argocd \
+  --type merge -p '{"data":{"timeout.reconciliation":"30s"}}'
+kubectl --context="$CONTEXT" rollout restart deployment argocd-repo-server -n argocd
+kubectl --context="$CONTEXT" wait --for=condition=available \
+  deployment/argocd-repo-server -n argocd --timeout=60s
+
+# 3. Apply Application manifests
 echo "=> Applying ArgoCD Application manifests..."
 kubectl --context="$CONTEXT" apply -f "$SCRIPT_DIR/apps/skill-lab-app/staging/application.yaml"
 kubectl --context="$CONTEXT" apply -f "$SCRIPT_DIR/apps/skill-lab-app/production/application.yaml"
